@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,6 +13,9 @@ const GEO_API_BASE_URL = 'https://api.openweathermap.org/geo/1.0';
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -293,15 +297,15 @@ app.get('/api/weather/air-pollution', async (req, res) => {
   }
 });
 
+// Serve React app for all other routes (must be after API routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Endpoint not found' });
 });
 
 // Start server

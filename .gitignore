@@ -30,3 +30,7 @@ Thumbs.db
 # Testing
 coverage/
 .nyc_output/
+
+# Build output
+client/dist/
+public/
