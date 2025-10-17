@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ],
-  "env": {
-    "WEATHER_API_KEY": "@weather_api_key"
-  }
+  ]
 }
