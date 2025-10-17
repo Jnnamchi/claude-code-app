@@ -33,4 +33,4 @@ coverage/
 
 # Build output
 client/dist/
-public/
+# public/ - Don't ignore, needed for Vercel deployment
